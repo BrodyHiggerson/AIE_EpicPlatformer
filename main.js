@@ -168,6 +168,12 @@ var FRICTION = MAXDX * 6;
 // (a large) instantaneous jump impulse
 var JUMP = METER * 1500;
 
+var heartImg = document.createElement("img");
+heartImg.src = "heart.png";
+
+var heartWidth = 20;
+var heartHeight = 20;
+
 function run()
 {
 	context.fillStyle = "#ccc";		
@@ -177,6 +183,12 @@ function run()
 	
 	player.update(deltaTime);
 	player.draw();
+
+	for (var i = 0; i < player.lives; ++i)
+	{
+		//context.drawImage(heartImg, (canvas.width - 100) + ((heartWidth + 2) * i), 10, heartWidth, heartHeight);
+		context.drawImage(heartImg, player.position.x - 5 + ((heartWidth + 2) * i), player.position.y - 75, heartWidth, heartHeight);
+	}
 	drawMap();
 		
 	// update the frame counter 

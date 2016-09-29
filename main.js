@@ -145,6 +145,9 @@ function drawMap()
 	}
 }
 
+var musicBackground;
+var sfxFire;
+
 var cells = []; // the array that holds our simplified collision data
 function initialize() {
 	for(var layerIdx = 0; layerIdx < LAYER_COUNT; layerIdx++) { // initialize the collision map
@@ -170,6 +173,22 @@ function initialize() {
 			}
 		}
 	}
+	
+	musicBackground = new Howl(
+	{
+		urls: ["background.ogg"],
+		loop: true,
+		buffer: true,
+		volume: 0.5
+	});
+	musicBackground.play();
+	
+	sfxFire = new Howl(
+	{
+		urls: ["fireEffect.ogg"],
+		buffer: true,
+		volume: 1
+	});
 }
 
 var player = new Player();

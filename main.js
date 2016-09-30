@@ -215,6 +215,9 @@ heartImg.src = "heart.png";
 var heartWidth = 20;
 var heartHeight = 20;
 
+var bIsPaused = false;
+var bWasPDown = false;
+
 function run()
 {
 	context.fillStyle = "#ccc";		
@@ -222,17 +225,40 @@ function run()
 	
 	var deltaTime = getDeltaTime();
 	
-	player.update(deltaTime);
+	if (keyboard.isKeyDown(keyboard.KEY_P) == true)
+	{
+		if (!bWasPDown)
+		{
+			console.log("Paused");
+			bIsPaused = !bIsPaused;
+			bWasPDown = true;
+		}
+	}
+	else
+	{
+		bWasPDown = false;
+	}
 	
-
 	for (var i = 0; i < player.lives; ++i)
 	{
 		//context.drawImage(heartImg, (canvas.width - 100) + ((heartWidth + 2) * i), 10, heartWidth, heartHeight);
-		context.drawImage(heartImg, player.position.x - worldOffsetX - 5 + ((heartWidth + 2) * i), player.position.y - 75, heartWidth, heartHeight);
+		context.drawImage(heartImg, player.position.x - worldOffsetX - 5 + ((heartWidth + 2) * i), player.position.y - 80, heartWidth, heartHeight);
 	}
 	
 	drawMap();
 	player.draw();
+		
+	if (!bIsPaused)
+	{
+		player.update(deltaTime);
+	}
+	else
+	{
+		context.fillStyle = "white";
+		context.font = "32px Arial";
+		context.fillText("PAUSED", SCREEN_WIDTH * 0.5 - 55, SCREEN_HEIGHT * 0.5);
+	}
+		
 		
 	// update the frame counter 
 	fpsTime += deltaTime;
